@@ -20,7 +20,7 @@ The application file was created to run the scraping.py data.  This is run and l
 - app.py
 
 The web application is formatted by a html file stored in the templates folder.  This determines the layout:
-- Templates/index.html
+- templates/index.html
 
 
 ## Summary
