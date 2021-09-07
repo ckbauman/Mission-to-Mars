@@ -19,7 +19,8 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "hemispheres": hemispheres(browser)
     }
 
     # Stop webdriver and return data
@@ -101,3 +102,66 @@ if __name__ == "__main__":
 
     # If running as script, print scraped data
     print(scrape_all())
+    
+    
+def hemispheres(browser):
+    # 1. Use browser to visit the URL 
+    url = 'https://marshemispheres.com/'
+
+    browser.visit(url)
+    
+    
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+
+
+    for i in range(4):
+        # create empty dictionary from the instructions
+        hemispheres = {}
+        # find 1 of the 4 links to click on using the index - will go through 4 times
+        full_image_elem = browser.find_by_css('a.product-item h3')[i]
+        full_image_elem.click()
+        #html = browser.html
+        #soup = soup(html, 'html.parser')
+    
+        # find the row of elements with the word "Sample" which gets you to the URL for the .jpg image
+        row = browser.find_link_by_text('Sample')
+        img_url = row['href']
+        #element = browser.find_link_by_text('Sample').first
+        #img_url = element['href']
+    
+        # find the title by the tag of h2 and class = title - use .text or will get weird ouput
+        title = browser.find_by_css("h2.title").text
+    
+        # need to fill in the dictionary "hemispheres" with img_url and title then add to the list from before
+        hemispheres["img_url"] = img_url
+        hemispheres["title"] = title
+        hemisphere_image_urls.append(hemispheres)
+    
+        # use the browser.back() method to go back to beginning of for loop and run back through 4 times
+        browser.back()
+        
+    return hemisphere_image_urls
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
